@@ -5,6 +5,7 @@ import { saveConfig, readConfig } from "./io/config.js"
 import toFixed from "./utils/toFixed.js"
 import getDayData from "./utils/getDayData.js"
 import { readConfigFromPackageJson } from "./utils/readPackageJson.js"
+import commandPrompt from "./prompts/commandPrompt.js"
 
 readConfigFromPackageJson()
 
@@ -38,14 +39,19 @@ const runTests = async (
   for (let i = 0; i < tests.length; i++) {
     const { name, input, expected } = tests[i]
 
+    const testName = `Part ${part}, test ${i + 1}${name ? `, ${name}` : ""}`
+    console.log(kleur.yellow(`${testName} - start`))
+
     const data = trimTestInputs ? stripIndent(input) : input
 
+    commandPrompt()
+    console.group()
     const t0 = process.hrtime.bigint()
     const result = await solution(data)
     const t1 = process.hrtime.bigint()
+    console.groupEnd()
     const time = Number(t1 - t0) / 1e6
 
-    const testName = `Part ${part}, test ${i + 1}${name ? `, ${name}` : ""}`
 
     if (result === expected) {
       console.log(kleur.green(`${testName} - passed (in ${toFixed(time)}ms)`))
@@ -61,9 +67,13 @@ const runTests = async (
 }
 
 const runSolution = async (solution: Solution, input: string, part: 1 | 2) => {
+  console.log(`\nPart ${part} - REAL start:`)
+  commandPrompt()
+  console.group()
   const t0 = process.hrtime.bigint()
   const result = await solution(input)
   const t1 = process.hrtime.bigint()
+  console.groupEnd()
   const time = Number(t1 - t0) / 1e6
 
   if (!["string", "number", "bigint", "undefined"].includes(typeof result)) {
