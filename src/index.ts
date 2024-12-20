@@ -40,14 +40,17 @@ const runTests = async (
 
     const data = trimTestInputs ? stripIndent(input) : input
 
+    const t0 = process.hrtime.bigint()
     const result = await solution(data)
+    const t1 = process.hrtime.bigint()
+    const time = Number(t1 - t0) / 1e6
 
     const testName = `Part ${part}, test ${i + 1}${name ? `, ${name}` : ""}`
 
     if (result === expected) {
-      console.log(kleur.green(`${testName} - passed`))
+      console.log(kleur.green(`${testName} - passed (in ${toFixed(time)}ms)`))
     } else {
-      console.log(kleur.red(`${testName} - failed`))
+      console.log(kleur.red(`${testName} - failed (in ${toFixed(time)}ms)`))
       console.log(`\nResult:`)
       console.dir(result)
       console.log(`\nExpected:`)
