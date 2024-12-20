@@ -44,7 +44,6 @@ const runTests = async (
 
     const data = trimTestInputs ? stripIndent(input) : input
 
-    commandPrompt()
     console.group()
     const t0 = process.hrtime.bigint()
     const result = await solution(data)
@@ -68,7 +67,6 @@ const runTests = async (
 
 const runSolution = async (solution: Solution, input: string, part: 1 | 2) => {
   console.log(`\nPart ${part} - REAL start:`)
-  commandPrompt()
   console.group()
   const t0 = process.hrtime.bigint()
   const result = await solution(input)
