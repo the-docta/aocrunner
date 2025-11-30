@@ -3,9 +3,7 @@ import { JSDOM } from "jsdom"
 import { writeFileSync, existsSync, statSync } from "fs"
 import kleur from "kleur"
 
-const USER_AGENT_HEADER = {
-  "User-Agent": "github.com/caderek/aocrunner by maciej.caderek@gmail.com",
-}
+const USER_AGENT_HEADER = "https://github.com/the-docta/aocrunner end-user:";
 
 const strToNum = (time: string) => {
   const entries: { [key: string]: number } = {
@@ -82,7 +80,7 @@ const handleErrors = (e: Error) => {
   return Status["ERROR"]
 }
 
-const getInput = async (year: number, day: number, path: string) => {
+const getInput = async (year: number, day: number, path: string, author = "") => {
   const API_URL = process.env.AOC_API ?? "https://adventofcode.com"
 
   if (existsSync(path) && statSync(path).size > 0) {
@@ -95,7 +93,7 @@ const getInput = async (year: number, day: number, path: string) => {
   fetch(`${API_URL}/${year}/day/${day}/input`, {
     headers: {
       cookie: `session=${process.env.AOC_SESSION_KEY}`,
-      ...USER_AGENT_HEADER,
+      "User-Agent": [USER_AGENT_HEADER,author].join(" "),
     },
   })
     .then((res) => {
@@ -116,7 +114,8 @@ const sendSolution = (
   year: number,
   day: number,
   part: 1 | 2,
-  solution: number | string,
+  solution: number | string, 
+  author = ""
 ): Promise<Status> => {
   const API_URL = process.env.AOC_API ?? "https://adventofcode.com"
 
@@ -136,7 +135,7 @@ const sendSolution = (
     headers: {
       cookie: `session=${process.env.AOC_SESSION_KEY}`,
       "content-type": "application/x-www-form-urlencoded",
-      ...USER_AGENT_HEADER,
+      "User-Agent": [USER_AGENT_HEADER,author].join(" "),
     },
     method: "POST",
     body: `level=${part}&answer=${solution}`,

@@ -116,7 +116,7 @@ const send = async (config: Config, dayNum: number, part: 1 | 2) => {
     }
   }
 
-  const status = await sendSolution(config.year, dayNum, part, dayData.result)
+  const status = await sendSolution(config.year, dayNum, part, dayData.result, config.author)
 
   if (status === Status["SOLVED"]) {
     config.days[dayNum - 1][part === 1 ? "part1" : "part2"].solved = true
@@ -177,7 +177,7 @@ const dev = (dayRaw: string | undefined) => {
     }
   }
 
-  getInput(config.year, dayNum, inputPath)
+  getInput(config.year, dayNum, inputPath, config.author)
 
   const files = getAllFiles("src")
 
@@ -220,7 +220,7 @@ const dev = (dayRaw: string | undefined) => {
     switch (command.toLowerCase()) {
       case "fetch":
       case "f":
-        getInput(config.year, dayNum, inputPath)
+        getInput(config.year, dayNum, inputPath, config.author)
         break
       case "send":
       case "s":
