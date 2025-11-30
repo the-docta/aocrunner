@@ -11,8 +11,8 @@ const renderDayBadges = (config: Config) => {
         (part1.solved && part2.solved) || (part1.solved && day === "25")
           ? "green"
           : part1.solved || part2.solved
-          ? "yellow"
-          : "gray"
+            ? "yellow"
+            : "gray"
 
       const badge = `![Day](https://badgen.net/badge/${day}/%E2%98%8${
         part1.solved ? 5 : 6

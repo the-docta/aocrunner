@@ -30,8 +30,8 @@ const showFullInfo = () => {
     latestVersion === null
       ? ""
       : latestVersion !== version
-      ? `(update available: v${latestVersion})`
-      : "(latest)"
+        ? `(update available: v${latestVersion})`
+        : "(latest)"
 
   console.log()
   console.log(stripIndent`
@@ -50,8 +50,8 @@ const showInfo = () => {
   console.log()
   console.log(stripIndent`
     Type: ${boldMagenta("f")} - fetch input, ${boldMagenta(
-    "s",
-  )} - send solutions, ${boldMagenta("h")} - help,  ${boldMagenta("q")} - quit
+      "s",
+    )} - send solutions, ${boldMagenta("h")} - help,  ${boldMagenta("q")} - quit
   `)
 
   if (latestVersion !== null && latestVersion !== version) {
@@ -116,7 +116,13 @@ const send = async (config: Config, dayNum: number, part: 1 | 2) => {
     }
   }
 
-  const status = await sendSolution(config.year, dayNum, part, dayData.result, config.author)
+  const status = await sendSolution(
+    config.year,
+    dayNum,
+    part,
+    dayData.result,
+    config.author,
+  )
 
   if (status === Status["SOLVED"]) {
     config.days[dayNum - 1][part === 1 ? "part1" : "part2"].solved = true

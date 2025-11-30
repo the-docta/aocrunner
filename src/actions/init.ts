@@ -28,22 +28,22 @@ const init = async () => {
     setup.packageManager === "npm"
       ? "npm i"
       : setup.packageManager === "yarn"
-      ? "yarn"
-      : "pnpm install"
+        ? "yarn"
+        : "pnpm install"
 
   const formatCmd =
     setup.packageManager === "npm"
       ? "npm run format"
       : setup.packageManager === "yarn"
-      ? "yarn format"
-      : "pnpm format"
+        ? "yarn format"
+        : "pnpm format"
 
   const startCmd =
     setup.packageManager === "npm"
       ? "npm start"
       : setup.packageManager === "yarn"
-      ? "yarn start"
-      : "pnpm start"
+        ? "yarn start"
+        : "pnpm start"
 
   const dir = setup.name
   const srcDir = path.join(dir, "src")

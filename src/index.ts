@@ -52,7 +52,6 @@ const runTests = async (
     console.groupEnd()
     const time = Number(t1 - t0) / 1e6
 
-
     if (result === expected) {
       console.log(kleur.green(`${testName} - passed (in ${toFixed(time)}ms)`))
     } else {

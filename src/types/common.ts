@@ -20,7 +20,7 @@ type DayConfig = {
 export type Config = {
   version: number
   year: number
-  author: string 
+  author: string
   language: "js" | "ts"
   days: { part1: DayConfig; part2: DayConfig }[]
 }
