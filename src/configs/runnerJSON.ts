@@ -4,6 +4,7 @@ const aocrunnerJSON = ({ year, language }: Setup): Config => {
   return {
     version: 1,
     year,
+    author: "",
     language,
     days: new Array(25).fill(0).map((_, i) => ({
       part1: {
